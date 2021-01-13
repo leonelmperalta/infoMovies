@@ -35,6 +35,10 @@ const BusquedaPorNombre = (props) => {
     anio: "",
   });
 
+  //State para guardar el resultado de la busqueda
+
+  const [resultadoBusqueda, setResultadoBusqueda] = useState({});
+
   //extraigo los valores nombre y anio
 
   const {nombre, anio} = busqueda; 
@@ -73,6 +77,7 @@ const BusquedaPorNombre = (props) => {
   }
 
   //funcion para consultar la pelicula
+
   async function consultarAPI(nombre, anio) {
     
     var url = "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
@@ -103,7 +108,7 @@ const BusquedaPorNombre = (props) => {
     if (resultado.total_results === 0) {
       alert("no encontre nadia");
     } else {
-      console.log(resultado)
+      setResultadoBusqueda(resultado);
     }
   }
 
@@ -138,7 +143,7 @@ const BusquedaPorNombre = (props) => {
         </Button>
       </form>
     </Paper>
-    <ListaDePeliculas />
+    <ListaDePeliculas resultadoBusqueda= {resultadoBusqueda}/>
     
     </Fragment> 
   );

@@ -9,31 +9,41 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
 const styles = {
-  table: {}
-  ,
   container: {
-      position: "absolute",
-      top: "10em",
-      width: "60em",
-      left: "32em"
-  }
+    position: "absolute",
+    top: "10em",
+    width: "60em",
+    left: "32em",
+    maxHeight: "30em",
+  },
 };
 
 const ListaDePeliculas = (props) => {
   const { classes } = props;
 
+  // extraigo de las props el resultado de la busqueda
+  const {results} = props.resultadoBusqueda;
+
+  // ahora armo el listado para renderizar
+
   return (
     <TableContainer component={Paper} className={classes.container}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table stickyHeader size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Resultados:</TableCell>
+            <TableCell align="left">Nombre:</TableCell>
+            <TableCell align="left">Fecha de estreno: </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          <TableRow key={"hola"}>
-            <TableCell component="th" scope="row"></TableCell>
-          </TableRow>
+        <TableBody className= {classes.tableBody}>
+        {results === undefined ? null : results.map((pelicula) => (
+            <TableRow key={pelicula.title}>
+              <TableCell component="th" scope="row">
+                {pelicula.title}
+              </TableCell>
+              <TableCell align="left">{pelicula.release_date}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
