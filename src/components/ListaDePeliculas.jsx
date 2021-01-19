@@ -7,6 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import {
+  Link as RouterLink
+} from "react-router-dom";
 
 const styles = {
   container: {
@@ -16,6 +19,10 @@ const styles = {
     left: "32em",
     maxHeight: "30em",
   },
+  tableCell: {
+    textDecoration: "underline",
+    cursor: "pointer",
+  }
 };
 
 const ListaDePeliculas = (props) => {
@@ -23,8 +30,6 @@ const ListaDePeliculas = (props) => {
 
   // extraigo de las props el resultado de la busqueda
   const {results} = props.resultadoBusqueda;
-
-  // ahora armo el listado para renderizar
 
   return (
     <TableContainer component={Paper} className={classes.container}>
@@ -37,9 +42,9 @@ const ListaDePeliculas = (props) => {
         </TableHead>
         <TableBody className= {classes.tableBody}>
         {results === undefined ? null : results.map((pelicula) => (
-            <TableRow key={pelicula.title}>
-              <TableCell component="th" scope="row">
-                {pelicula.title}
+            <TableRow key={pelicula.title} to= {"/Pelicula/" + pelicula.id} component={RouterLink}>
+              <TableCell className= {classes.tableCell} component="th" scope="row" >
+                { pelicula.title }
               </TableCell>
               <TableCell align="left">{pelicula.release_date}</TableCell>
             </TableRow>

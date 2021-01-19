@@ -50,13 +50,11 @@ const BusquedaPorNombre = (props) => {
       ...busqueda,
       [e.target.name]: e.target.value,
     });
-    console.log(busqueda)
   }
 
   //Funcion para extraer el valor de la busqueda
 
   function realizarBusqueda() {
-    console.log(busqueda)
 
     //valido los datos 
 
@@ -64,7 +62,7 @@ const BusquedaPorNombre = (props) => {
       alert("Escribi bien el nombre sorete")
       return;
     }
-    if(anio === null || anio === "" || anio > 2021){
+    if(anio > 2021){
       alert("Escribi bien el anio sorete")
       return;
     }
@@ -80,7 +78,7 @@ const BusquedaPorNombre = (props) => {
 
   async function consultarAPI(nombre, anio) {
     
-    var url = "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
+    let url = "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
     nombre +
     "&page=1&include_adult=false";
 
@@ -91,7 +89,7 @@ const BusquedaPorNombre = (props) => {
     }
 
     try {
-      var resultado = {};
+      let resultado = {};
       await fetch(url)
         .then((response) => response.json())
         .then((data) => (resultado = data));
@@ -104,7 +102,6 @@ const BusquedaPorNombre = (props) => {
   //funcion para el caso en que la busqueda no devuelva ningun resultado.
 
   function validarRenderPelicula(resultado) {
-    console.log(resultado.total_results);
     if (resultado.total_results === 0) {
       alert("no encontre nadia");
     } else {
