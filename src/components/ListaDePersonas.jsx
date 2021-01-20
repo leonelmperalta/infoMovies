@@ -42,7 +42,7 @@ const ListaDePersonas = (props) => {
         </TableHead>
         <TableBody className= {classes.tableBody}>
         {results === undefined ? null : results.map((persona) => (
-            <TableRow key={persona.name} >
+            <TableRow key={persona.name} to= {"/Persona/" + persona.id} component={RouterLink}>
               <TableCell className= {classes.tableCell} component="th" scope="row" >
                 { persona.name }
               </TableCell>

@@ -9,7 +9,7 @@ const styles = {
     top: "10em",
     left: "5vw",
     width: "19em",
-    height: "16em",
+    height: "12em",
     padding: "10px",
     display: "inline-block",
   },

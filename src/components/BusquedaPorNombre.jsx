@@ -82,7 +82,7 @@ const BusquedaPorNombre = (props) => {
     nombre +
     "&page=1&include_adult=false";
 
-    if(anio != ""){
+    if(anio !== ""){
       url = "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
         nombre +
         "&page=1&include_adult=false&year=" + anio;
