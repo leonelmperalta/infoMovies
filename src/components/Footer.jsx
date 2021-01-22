@@ -12,15 +12,16 @@ const styles = {
     height: "30px",
   },
   footerText: {
-      color: "white",
-      textAlign: "center",
+      color: "gray",
+      textAlign: "left",
+      padding: "2px 5px"
   }
 };
 
 const Footer = (props) => {
   const { classes } = props;
   return <div className={classes.footer}>
-      <Typography variant= "subtitle1" color= "secondary" className={classes.footerText}> La mejor pagina del world.</Typography>
+      <Typography variant= "body1" color= "secondary" className={classes.footerText}> Hecho por Leonel Peralta.</Typography>
   </div>;
 };
 

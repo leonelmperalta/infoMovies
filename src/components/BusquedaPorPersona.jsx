@@ -81,7 +81,6 @@ const BusquedaPorPersona = (props) => {
       await fetch(url)
         .then((response) => response.json())
         .then((data) => (resultado = data));
-        console.log(resultado);
       validarRenderPersona(resultado);
     } catch (error) {
       console.log(error);

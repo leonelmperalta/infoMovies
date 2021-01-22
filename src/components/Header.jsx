@@ -54,7 +54,7 @@ const Header = (props) => {
       <AppBar className={classes.header}>
         <Toolbar>
           <Typography variant="h6" className={classes.logo}>
-            <Link color="inherit" to="/Home" component={RouterLink}> InfoMovies </Link>
+            <Link color="inherit" to="/" component={RouterLink}> InfoMovies </Link>
           </Typography>
           <div className={classes.toolbar}>{getButtonData()}</div>
         </Toolbar>

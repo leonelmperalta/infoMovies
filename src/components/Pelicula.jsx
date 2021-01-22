@@ -51,6 +51,8 @@ const Pelicula = (props) => {
   const id = props.match.params.id;
 
   useEffect(() => {
+
+    
     getMovie(id);
   }, []);
 
@@ -73,37 +75,32 @@ const Pelicula = (props) => {
     setPelicula(resultado);
   };
 
-  const titulo = pelicula.title;
-  const descripcion = pelicula.overview;
-  const popularidad = pelicula.popularity;
-  const fechaLanzamiento = pelicula.release_date;
-  const votos = pelicula.vote_count;
-  const votoPromedio = pelicula.vote_average;
+  const {title, overview, popularity, release_date, vote_count, vote_average} = pelicula;
   const pathImagen = pelicula.poster_path;
   const urlImagen = "https://image.tmdb.org/t/p/w185" + pathImagen;
 
   return (
     <Paper className={classes.paper}>
-      <img className={classes.imagenPelicula} src={urlImagen}></img>
+      <img className={classes.imagenPelicula} src={urlImagen} alt=""></img>
       <Typography variant="h5" className={classes.titulo}>
-        {titulo}
+        {title}
       </Typography>
       <Typography variant="body1" className={classes.descripcion}>
         {" "}
-        {descripcion}
+        {overview}
       </Typography>
       <Typography variant="body1" className={classes.fechaLanzamiento}>
-        <strong>Release date:</strong> {fechaLanzamiento}
+        <strong>Release date:</strong> {release_date}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
-        <strong>Vote count : </strong> {votos}
+        <strong>Vote count : </strong> {vote_count}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
-        <strong>Vote average: </strong> {votoPromedio}
+        <strong>Vote average: </strong> {vote_average}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
         <strong>Popularity: </strong>
-        {popularidad}
+        {popularity}
       </Typography>
     </Paper>
   );

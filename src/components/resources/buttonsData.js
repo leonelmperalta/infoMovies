@@ -1,7 +1,7 @@
 const buttonData = [
     { label: "Buscar por nombre", href: "/BusquedaPorNombre" },
-    { label: "Buscar por Persona", href: "/BusquedaPorPersona" },
-    { label: "Pelicula aleatoria!", href: "/BusquedaAleatoria" }
+    { label: "Buscar personas", href: "/BusquedaPorPersona" },
+    { label: "Buscar por genero", href: "/BusquedaPorGenero" }
 ]
 
 export default buttonData;

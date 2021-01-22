@@ -65,36 +65,31 @@ const Persona = (props) => {
     setPersona(resultado);
   };
 
-  const nombre = persona.name;
-  const biografia = persona.biography;
-  const popularidad = persona.popularity;
-  const fechaCumpleanios = persona.birthday;
-  const lugarNacimiento = persona.place_of_birth;
-  const genero = persona.gender;
+  const {name, biography, popularity, birthday, place_of_birth, gender} = persona;
   const pathImagen = persona.profile_path;
   const urlImagen = "https://image.tmdb.org/t/p/w185" + pathImagen;
 
   return (
     <Paper className={classes.paper}>
-      <img className={classes.imagenPersona} src={urlImagen}></img>
+      <img className={classes.imagenPersona} src={urlImagen} alt= ""></img>
       <Typography variant="h5" className={classes.titulo}>
-        {nombre}
+        {name}
       </Typography>
       <Typography variant="body1" className={classes.biografia}>
-        {biografia}
+        {biography}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
-        <strong>Birthday:</strong> {fechaCumpleanios}
+        <strong>Birthday:</strong> {birthday}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
-        <strong>Gender: </strong> {genero === 1 ? "Female" : genero === 2 ? "Male" : "N/D"}
+        <strong>Gender: </strong> {gender === 1 ? "Female" : gender === 2 ? "Male" : "N/D"}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
-        <strong>Place of Birth: </strong> {lugarNacimiento}
+        <strong>Place of Birth: </strong> {place_of_birth}
       </Typography>
       <Typography variant="body1" className={classes.otrosDatos}>
         <strong>Popularity: </strong>
-        {popularidad}
+        {popularity}
       </Typography>
     </Paper>
   );

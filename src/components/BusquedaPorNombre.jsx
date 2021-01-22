@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from "react";
+import React, { Fragment, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { TextField, Paper, Button } from "@material-ui/core";
 import ListaDePeliculas from "./ListaDePeliculas";
@@ -11,7 +11,7 @@ const styles = {
     width: "19em",
     height: "16em",
     padding: "10px",
-    display: "inline-block"
+    display: "inline-block",
   },
   textfield: {
     margin: "10px",
@@ -20,10 +20,10 @@ const styles = {
     left: "10.5em",
     top: ".8em",
     backgroundColor: "black",
-    '&:hover': {
+    "&:hover": {
       background: "gray",
-   },
-  }
+    },
+  },
 };
 
 const BusquedaPorNombre = (props) => {
@@ -41,7 +41,7 @@ const BusquedaPorNombre = (props) => {
 
   //extraigo los valores nombre y anio
 
-  const {nombre, anio} = busqueda; 
+  const { nombre, anio } = busqueda;
 
   //funcion para validar en tiempo real los form
 
@@ -50,42 +50,43 @@ const BusquedaPorNombre = (props) => {
       ...busqueda,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   //Funcion para extraer el valor de la busqueda
 
   function realizarBusqueda() {
+    //valido los datos
 
-    //valido los datos 
-
-    if(nombre.trim() === null || nombre.trim() === ""){
-      alert("Escribi bien el nombre sorete")
+    if (nombre.trim() === null || nombre.trim() === "") {
+      alert("Escribi bien el nombre sorete");
       return;
     }
-    if(anio > 2021){
-      alert("Escribi bien el anio sorete")
+    if (anio > 2021) {
+      alert("Escribi bien el anio sorete");
       return;
     }
 
     //llamo a la funcion para buscar el contenido en la api
-    consultarAPI(nombre,anio);
+    consultarAPI(nombre, anio);
 
     // reinicio la busqueda
-    setBusqueda({nombre:'', anio: ''});
+    setBusqueda({ nombre: "", anio: "" });
   }
 
   //funcion para consultar la pelicula
 
   async function consultarAPI(nombre, anio) {
-    
-    let url = "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
-    nombre +
-    "&page=1&include_adult=false";
+    let url =
+      "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
+      nombre +
+      "&page=1&include_adult=false";
 
-    if(anio !== ""){
-      url = "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
+    if (anio !== "") {
+      url =
+        "https://api.themoviedb.org/3/search/movie?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
         nombre +
-        "&page=1&include_adult=false&year=" + anio;
+        "&page=1&include_adult=false&year=" +
+        anio;
     }
 
     try {
@@ -109,40 +110,41 @@ const BusquedaPorNombre = (props) => {
     }
   }
 
-
-  
-
   return (
     <Fragment>
-    <Paper elevation={3} className={classes.paper}>
-      <form noValidate autoComplete="off">
-        <TextField
-          className={classes.textfield}
-          id="standard-basic"
-          name = "nombre"
-          label="Nombre de la pelicula"
-          variant="outlined"
-          value = {nombre}
-          onChange={handleChange}
-        />
-        <TextField
-          className={classes.textfield}
-          id="standard-basic"
-          name= "anio"
-          label="Año de la pelicula"
-          variant="outlined"
-          type ="number"
-          value = {anio}
-          onChange={handleChange}
-        />
-        <Button variant="contained" color="primary" className={classes.button} onClick={realizarBusqueda}>
-          Buscar
-        </Button>
-      </form>
-    </Paper>
-    <ListaDePeliculas resultadoBusqueda= {resultadoBusqueda}/>
-    
-    </Fragment> 
+      <Paper elevation={3} className={classes.paper}>
+        <form noValidate autoComplete="off">
+          <TextField
+            className={classes.textfield}
+            id="standard-basic"
+            name="nombre"
+            label="Nombre de la pelicula"
+            variant="outlined"
+            value={nombre}
+            onChange={handleChange}
+          />
+          <TextField
+            className={classes.textfield}
+            id="standard-basic"
+            name="anio"
+            label="Año de la pelicula"
+            variant="outlined"
+            type="number"
+            value={anio}
+            onChange={handleChange}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={realizarBusqueda}
+          >
+            Buscar
+          </Button>
+        </form>
+      </Paper>
+      <ListaDePeliculas resultadoBusqueda={resultadoBusqueda} />
+    </Fragment>
   );
 };
 
