@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { TextField, Paper, Button } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import ListaDePeliculas from "./ListaDePeliculas";
 
 const styles = {
@@ -24,6 +25,15 @@ const styles = {
       background: "gray",
     },
   },
+  alertNombre: {
+    position: "absolute",
+    bottom: "2em",
+  },
+  alertAnio: {
+    position: "absolute",
+    bottom: "2em",
+    left: "16em",
+  },
 };
 
 const BusquedaPorNombre = (props) => {
@@ -38,6 +48,12 @@ const BusquedaPorNombre = (props) => {
   //State para guardar el resultado de la busqueda
 
   const [resultadoBusqueda, setResultadoBusqueda] = useState({});
+
+  //State para renderizar error durante validacion
+
+  const [errorNombre, setErrorNombre] = useState(false);
+
+  const [errorAnio, setErrorAnio] = useState(false);
 
   //extraigo los valores nombre y anio
 
@@ -58,13 +74,16 @@ const BusquedaPorNombre = (props) => {
     //valido los datos
 
     if (nombre.trim() === null || nombre.trim() === "") {
-      alert("Escribi bien el nombre sorete");
+      setErrorNombre(true);
+      if (anio > 2021) {
+        setErrorAnio(true);
+        return;
+      }
       return;
     }
-    if (anio > 2021) {
-      alert("Escribi bien el anio sorete");
-      return;
-    }
+
+    setErrorNombre(false);
+    setErrorAnio(false);
 
     //llamo a la funcion para buscar el contenido en la api
     consultarAPI(nombre, anio);
@@ -104,7 +123,7 @@ const BusquedaPorNombre = (props) => {
 
   function validarRenderPelicula(resultado) {
     if (resultado.total_results === 0) {
-      alert("no encontre nadia");
+      alert("No se encontro ninguna pelicula");
     } else {
       setResultadoBusqueda(resultado);
     }
@@ -144,6 +163,16 @@ const BusquedaPorNombre = (props) => {
         </form>
       </Paper>
       <ListaDePeliculas resultadoBusqueda={resultadoBusqueda} />
+      {errorNombre && (
+        <Alert severity="warning" className={classes.alertNombre}>
+          Ingresa bien el nombre!
+        </Alert>
+      )}
+      {errorAnio && (
+        <Alert severity="warning" className={classes.alertAnio}>
+          Ingresa bien el año!
+        </Alert>
+      )}
     </Fragment>
   );
 };

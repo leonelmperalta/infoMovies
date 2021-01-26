@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { TextField, Paper, Button } from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
 import ListaDePersonas from "./ListaDePersonas";
 
 const styles = {
@@ -24,6 +25,10 @@ const styles = {
       background: "gray",
     },
   },
+  alert: {
+    position: "absolute",
+    bottom: "2em",
+  },
 };
 
 const BusquedaPorPersona = (props) => {
@@ -33,6 +38,8 @@ const BusquedaPorPersona = (props) => {
   const [busqueda, setBusqueda] = useState({
     nombre: "",
   });
+
+  const [error, setError] = useState(false);
 
   //State para guardar el resultado de la busqueda
 
@@ -57,9 +64,11 @@ const BusquedaPorPersona = (props) => {
     //valido los datos
 
     if (nombre.trim() === null || nombre.trim() === "") {
-      alert("Escribi bien el nombre sorete");
+      setError(true);
       return;
     }
+
+    setError(false);
 
     //llamo a la funcion para buscar el contenido en la api
     consultarAPI(nombre);
@@ -73,7 +82,7 @@ const BusquedaPorPersona = (props) => {
   async function consultarAPI(nombre) {
     let url =
       "https://api.themoviedb.org/3/search/person?api_key=2bfde98323b35592c98968f6ac494fc7&language=en-US&query=" +
-       nombre  +
+      nombre +
       "&page=1&include_adult=false";
 
     try {
@@ -91,7 +100,7 @@ const BusquedaPorPersona = (props) => {
 
   function validarRenderPersona(resultado) {
     if (resultado.total_results === 0) {
-      alert("no encontre nadia");
+      alert("No se encontro ninguna persona con ese nombre");
     } else {
       setResultadoBusqueda(resultado);
     }
@@ -121,6 +130,11 @@ const BusquedaPorPersona = (props) => {
         </form>
       </Paper>
       <ListaDePersonas resultadoBusqueda={resultadoBusqueda} />
+      {error && (
+        <Alert severity="warning" className={classes.alert}>
+          Escribe bien el nombre! 
+        </Alert>
+      )}
     </Fragment>
   );
 };

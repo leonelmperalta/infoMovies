@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import generos from "./resources/genres";
 import ListaDePeliculas from "./ListaDePeliculas";
 
@@ -35,6 +36,10 @@ const styles = {
       background: "gray",
     },
   },
+  alert: {
+    position: "absolute",
+    bottom: "2em",
+  }
 };
 
 const BusquedaPorGenero = (props) => {
@@ -44,26 +49,34 @@ const BusquedaPorGenero = (props) => {
 
   const [resultadoBusqueda, setResultadoBusqueda] = useState({});
 
+  const [error, setError] = useState(false);
+
   const handleChange = (event) => {
     setGenero(event.target.value);
   };
 
   const consultarAPI = async (id) => {
-    let url = "https://api.themoviedb.org/3/discover/movie?api_key=2bfde98323b35592c98968f6ac494fc7&with_genres=" + id;
+    let url =
+      "https://api.themoviedb.org/3/discover/movie?api_key=2bfde98323b35592c98968f6ac494fc7&with_genres=" +
+      id;
     let resultado = "";
     try {
-      await fetch(url).then((response) => response.json()).then((data) => (resultado = data));
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => (resultado = data));
       setResultadoBusqueda(resultado);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   function realizarBusqueda() {
-    
-    if(genero === ""){
-      alert("no elegiste nada bro");
+    if (genero === "") {
+      setError(true);
+      return;
     }
+
+    setError(false);
 
     //llamo a la funcion para buscar el contenido en la api
     consultarAPI(genero);
@@ -84,7 +97,9 @@ const BusquedaPorGenero = (props) => {
               value={genero}
               onChange={handleChange}
             >
-              {generos.generos.map((genero) => (<MenuItem value={genero.id}>{genero.name}</MenuItem>))}
+              {generos.generos.map((genero) => (
+                <MenuItem value={genero.id}>{genero.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
           <Button
@@ -97,7 +112,12 @@ const BusquedaPorGenero = (props) => {
           </Button>
         </form>
       </Paper>
-      <ListaDePeliculas resultadoBusqueda = {resultadoBusqueda} />
+      <ListaDePeliculas resultadoBusqueda={resultadoBusqueda} />
+      {error && (
+        <Alert severity="warning" className={classes.alert}>
+          No elegiste un genero! 
+        </Alert>
+      )}
     </Fragment>
   );
 };
